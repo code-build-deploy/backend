@@ -6,6 +6,7 @@ import random
 
 class Organisation(models.Model):
 	name = models.CharField(max_length=512)
+	email = models.CharField(max_length=256)
 	registered_on = models.DateTimeField(default=timezone.now)
 	id_hash = models.CharField(max_length=64)
 
@@ -26,3 +27,11 @@ class Certificate(models.Model):
 
 	def __str__(self):
 		return self.awarded_to
+
+class User(models.Model):
+	email = models.CharField(max_length=512)
+	name = models.CharField(max_length=256)
+	user_id = models.CharField(max_length=512)
+
+	def __str__(self):
+		return self.user_id

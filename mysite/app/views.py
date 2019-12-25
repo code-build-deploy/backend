@@ -20,27 +20,6 @@ def home(request):
 # 		i = i + 1
 # 	return HttpResponse("<h1>Successful</h1>")
 
-# def clash(request):
-# 	flag = 0
-# 	i = 0
-# 	for i in range(20):
-# 		x = selected_words[i]
-# 		count = 0
-# 		j = 0
-# 		for j in range(20):
-# 			if x == selected_words[j]:
-# 				count = count + 1
-# 		if count >= 2:
-# 			flag = 1
-# 			break
-
-# 	if flag == 1:
-# 		resp = "Found clashing words at " + selected_words[i]
-# 		return HttpResponse(resp)
-
-# 	else:
-# 		return HttpResponse("All clear ?")
-
 def generate_words():
 	x = list(Params.objects.values('name'))
 	for i in range(len(x)):
@@ -86,6 +65,47 @@ def create_hash(request):
 
 	return JsonResponse(final_generated_chain, safe=False)
 
-# def generate_certificate(request)
+def login(request):
+	if request.method == 'POST':
+		y = json.loads(request.body)
+		temp = y["chain"]
+		requested_email = y["email"]
+
+		# figure out how to use emails and chain, for the certificate identification
+
+		chain = temp.split()
+		print(chain)
+		return HttpResponse("Successful")
+	else:
+		return HttpResponse("Try again")
+
+def generate_certificate(request):
+	if request.method == 'POST':
+		y = json.loads(request.body)
+		data = ""
+		data = data + y["name"]
+		return HttpResponse(data)
+	else:
+		return HttpResponse("Attempt")
 
 
+# def clash(request):
+# 	flag = 0
+# 	i = 0
+# 	for i in range(20):
+# 		x = selected_words[i]
+# 		count = 0
+# 		j = 0
+# 		for j in range(20):
+# 			if x == selected_words[j]:
+# 				count = count + 1
+# 		if count >= 2:
+# 			flag = 1
+# 			break
+
+# 	if flag == 1:
+# 		resp = "Found clashing words at " + selected_words[i]
+# 		return HttpResponse(resp)
+
+# 	else:
+# 		return HttpResponse("All clear ?")

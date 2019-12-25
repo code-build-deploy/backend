@@ -20,6 +20,8 @@ from app import views as app_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', app_view.home, name='home'),
+    path('login/', app_view.login, name='login'),
+    path('gen/', app_view.generate_certificate, name='generate_certificate'),
     # path('autosave/', app_view.autosave, name='autosave'),
     # path('clash/', app_view.clash, name='clash'),
     path('response/', app_view.create_hash, name='generatehash'),
