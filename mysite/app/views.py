@@ -74,13 +74,16 @@ def create_hash(request):
 
 	final_generated_chain, final_hash_index = randomise_hash(words)
 
-	temp = []
+	# temp = []
+	
 	# for i in range(10):
-	# 	for j in 
+	# 	for j in range(10):
+	# 		if final_hash_index[j] == i:
+	# 			break
+	# 	temp.append(final_generated_chain[j])
 
-	# reconstruct hash
+	# print(temp, words)
 
-	print(temp, words)
 	return JsonResponse(final_generated_chain, safe=False)
 
 # def generate_certificate(request)
