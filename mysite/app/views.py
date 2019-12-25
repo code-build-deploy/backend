@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-import random
-from .models import Params
 from django.utils import timezone
+from .models import Params
+import random
+import json
 # Create your views here.
 
 # selected_words = ['bedposts', 'nonactor', 'clothing', 'gridlock', 'cochlear', 'challies', 'expiatory', 'symbions', 'lucernes', 'formants', 'unguents', 'amassers', 'deponing', 'chimaera', 'scattier', 'diastral', 'foveolar', 'swannery', 'pumicing', 'mystagogy']
@@ -18,6 +19,27 @@ def home(request):
 # 		Params.objects.create(name=x)
 # 		i = i + 1
 # 	return HttpResponse("<h1>Successful</h1>")
+
+# def clash(request):
+# 	flag = 0
+# 	i = 0
+# 	for i in range(20):
+# 		x = selected_words[i]
+# 		count = 0
+# 		j = 0
+# 		for j in range(20):
+# 			if x == selected_words[j]:
+# 				count = count + 1
+# 		if count >= 2:
+# 			flag = 1
+# 			break
+
+# 	if flag == 1:
+# 		resp = "Found clashing words at " + selected_words[i]
+# 		return HttpResponse(resp)
+
+# 	else:
+# 		return HttpResponse("All clear ?")
 
 def generate_words():
 	x = list(Params.objects.values('name'))
@@ -51,26 +73,16 @@ def create_hash(request):
 			words.append(selected_words[x])
 
 	final_generated_chain, final_hash_index = randomise_hash(words)
-	
-	return JsonResponse(final_hash_index, safe=False)
 
-# def clash(request):
-# 	flag = 0
-# 	i = 0
-# 	for i in range(20):
-# 		x = selected_words[i]
-# 		count = 0
-# 		j = 0
-# 		for j in range(20):
-# 			if x == selected_words[j]:
-# 				count = count + 1
-# 		if count >= 2:
-# 			flag = 1
-# 			break
+	temp = []
+	# for i in range(10):
+	# 	for j in 
 
-# 	if flag == 1:
-# 		resp = "Found clashing words at " + selected_words[i]
-# 		return HttpResponse(resp)
+	# reconstruct hash
 
-# 	else:
-# 		return HttpResponse("All clear ?")
+	print(temp, words)
+	return JsonResponse(final_generated_chain, safe=False)
+
+# def generate_certificate(request)
+
+

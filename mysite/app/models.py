@@ -18,3 +18,11 @@ class Params(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class Certificate(models.Model):
+	value = models.CharField(max_length=128)
+	awarded_to = models.CharField(max_length=128)
+	awarded_on = models.DateTimeField(default=timezone.now)
+
+	def __str__(self):
+		return self.awarded_to
