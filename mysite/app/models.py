@@ -30,8 +30,15 @@ class Certificate(models.Model):
 
 class User(models.Model):
 	email = models.CharField(max_length=512)
-	name = models.CharField(max_length=256)
+	username = models.CharField(max_length=256)
+	chain = models.CharField(max_length=256)
 	user_id = models.CharField(max_length=512)
 
+	def validate_chain(self, recieved_chain):
+		if recieved_chain == self.chain:
+			return True
+		else:
+			return False
+
 	def __str__(self):
-		return self.user_id
+		return self.username

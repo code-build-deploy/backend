@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
-from .models import Params
+from .models import Params, User
 import random
 import json
 # Create your views here.
@@ -39,7 +39,7 @@ def randomise_hash(words):
 			random_chain.append(words[x])
 	return random_chain, indexes
 
-def create_hash(request):
+def create_hash(username, email):
 	generate_words()
 	hash_selected_index = []
 	words = []
@@ -53,31 +53,106 @@ def create_hash(request):
 
 	final_generated_chain, final_hash_index = randomise_hash(words)
 
-	# temp = []
+	string = ""
+	random_string = ""
 	
-	# for i in range(10):
-	# 	for j in range(10):
-	# 		if final_hash_index[j] == i:
-	# 			break
-	# 	temp.append(final_generated_chain[j])
+	count = 0
+	
+	for i in words:
+		string = string + i
+		if count < 9:
+			string = string + " "
+		count = count + 1
 
-	# print(temp, words)
+	count = 0
 
-	return JsonResponse(final_generated_chain, safe=False)
+	for i in final_generated_chain:
+		random_string = random_string + i
+		if count < 9:
+			random_string = random_string + " "
+		count = count + 1
+
+	id_list = ""
+	count = 0
+
+	for i in final_hash_index:
+		id_list = id_list + str(i)
+		if count < 9:
+			id_list = id_list + " "
+		count = count + 1
+
+	User.objects.create(email=email, username=username, user_id=id_list, chain=string)
+
+	return random_string
+
+# Work on it later
+
+# def register_user_request(request):
+# 	if request.method == 'POST':
+# 		y = json.loads(request.body)
+# 	else:
+# 		return HttpResponse("Incorrect validation schema")
+
+def register_user(request):
+	if request.method == 'POST':
+		y = json.loads(request.body)
+		email = y["email"]
+		username = y["username"]
+		id_hash = create_hash(username, email)
+		data = {
+			"username": username,
+			"email": email,
+			"hash": id_hash
+		}
+		return JsonResponse(data, safe=False)
+	else:
+		return HttpResponse("Incorrect validation schema")
 
 def login(request):
 	if request.method == 'POST':
 		y = json.loads(request.body)
-		temp = y["chain"]
 		requested_email = y["email"]
+		requested_username = y["username"]
+		recieved_chain = y["chain"]
+		recieved_chain = recieved_chain.split()
 
 		# figure out how to use emails and chain, for the certificate identification
+		
+		user = User.objects.get(username=requested_username, email=requested_email)
+		indexes = user.user_id
+		indexes = indexes.split()
 
-		chain = temp.split()
-		print(chain)
-		return HttpResponse("Successful")
+		for i in range(len(indexes)):
+			indexes[i] = int(indexes[i])
+		
+		data =[]
+		for i in range(10):
+			data.append(" ")
+
+		for i in range(10):
+			data[indexes[i]] = recieved_chain[i]
+
+		count = 0
+		new_chain = ""
+
+		for i in range(10):
+			new_chain = new_chain + data[i]
+			if count < 9:
+				new_chain = new_chain + " "
+			count = count + 1
+		
+		if user.validate_chain(new_chain):
+			data = {
+				"val": "True"
+			}
+			return JsonResponse(data, safe=True)
+		else:
+			data = {
+				"val": "False"
+			}
+			return JsonResponse(data, safe=False)
 	else:
-		return HttpResponse("Try again")
+		return HttpResponse("Incorrect Attempt")
 
 def generate_certificate(request):
 	if request.method == 'POST':
@@ -89,23 +164,4 @@ def generate_certificate(request):
 		return HttpResponse("Attempt")
 
 
-# def clash(request):
-# 	flag = 0
-# 	i = 0
-# 	for i in range(20):
-# 		x = selected_words[i]
-# 		count = 0
-# 		j = 0
-# 		for j in range(20):
-# 			if x == selected_words[j]:
-# 				count = count + 1
-# 		if count >= 2:
-# 			flag = 1
-# 			break
 
-# 	if flag == 1:
-# 		resp = "Found clashing words at " + selected_words[i]
-# 		return HttpResponse(resp)
-
-# 	else:
-# 		return HttpResponse("All clear ?")

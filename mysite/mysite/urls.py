@@ -21,8 +21,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', app_view.home, name='home'),
     path('login/', app_view.login, name='login'),
+    # path('register/new/', app_view.register_user_request, name='registerationrequest'),
+    path('register/', app_view.register_user, name='register'),
     path('gen/', app_view.generate_certificate, name='generate_certificate'),
     # path('autosave/', app_view.autosave, name='autosave'),
+    # path('response/', app_view.create_hash, name='generatehash'),
     # path('clash/', app_view.clash, name='clash'),
-    path('response/', app_view.create_hash, name='generatehash'),
 ]
