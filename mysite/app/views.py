@@ -1,17 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
-from .models import Params, User
+from .models import Params, User, Certificate, Organisation
 import random
 import json
 # Create your views here.
 
 # selected_words = ['bedposts', 'nonactor', 'clothing', 'gridlock', 'cochlear', 'challies', 'expiatory', 'symbions', 'lucernes', 'formants', 'unguents', 'amassers', 'deponing', 'chimaera', 'scattier', 'diastral', 'foveolar', 'swannery', 'pumicing', 'mystagogy']
-selected_words = []
 
-def home(request):
-	return HttpResponse("Hello World")
-
+# Autosave function (Used this to create worded parameters I guess)
 # def autosave(request):
 # 	i = 0
 # 	while i < 20:
@@ -19,6 +16,33 @@ def home(request):
 # 		Params.objects.create(name=x)
 # 		i = i + 1
 # 	return HttpResponse("<h1>Successful</h1>")
+
+# Work on the register_user_request later, we'll use this for three way handshake
+
+# def register_user_request(request):
+# 	if request.method == 'POST':
+# 		y = json.loads(request.body)
+# 	else:
+# 		return HttpResponse("Incorrect validation schema")
+
+selected_words = []
+
+def home(request):
+	return HttpResponse("Hello World")
+
+def display(request):
+	if request.method == 'POST':
+		resp = json.loads(request.body)
+		user_hash_associated = resp['hash']
+		merits = Certificate.objects.filter(awarded_to=user_hash_associated)
+		for i in merits:
+			print(i.ret_certificate())
+		data = {
+			"number": int(len(merits))
+		}
+		return JsonResponse(data, safe=False)
+	else:
+		return HttpResponse("Nopes bud, not working")
 
 def generate_words():
 	x = list(Params.objects.values('name'))
@@ -85,14 +109,6 @@ def create_hash(username, email):
 
 	return random_string
 
-# Work on it later
-
-# def register_user_request(request):
-# 	if request.method == 'POST':
-# 		y = json.loads(request.body)
-# 	else:
-# 		return HttpResponse("Incorrect validation schema")
-
 def register_user(request):
 	if request.method == 'POST':
 		y = json.loads(request.body)
@@ -115,8 +131,6 @@ def login(request):
 		requested_username = y["username"]
 		recieved_chain = y["chain"]
 		recieved_chain = recieved_chain.split()
-
-		# figure out how to use emails and chain, for the certificate identification
 		
 		user = User.objects.get(username=requested_username, email=requested_email)
 		indexes = user.user_id
@@ -157,11 +171,41 @@ def login(request):
 def generate_certificate(request):
 	if request.method == 'POST':
 		y = json.loads(request.body)
-		data = ""
-		data = data + y["name"]
-		return HttpResponse(data)
+		organisation_username = y["username"]
+		organisation_email = y["email"]
+		organisation_hash = y["chain"]
+		recieved_chain = organisation_hash.split()
+		
+		organisation = Organisation.objects.get(username=organisation_username, email=organisation_email)
+		indexes = organisation.user_id
+		indexes = indexes.split()
+
+		for i in range(len(indexes)):
+			indexes[i] = int(indexes[i])
+		
+		data =[]
+		for i in range(10):
+			data.append(" ")
+
+		for i in range(10):
+			data[indexes[i]] = recieved_chain[i]
+
+		count = 0
+		new_chain = ""
+
+		for i in range(10):
+			new_chain = new_chain + data[i]
+			if count < 9:
+				new_chain = new_chain + " "
+			count = count + 1
+		
+		if organisation.validate_chain(new_chain):
+			data = {
+				""
+			}
+			return JsonResponse(data, safe=True)
+		else:
+			return HttpResponse("Incorrect Attempt")
 	else:
 		return HttpResponse("Attempt")
-
-
 

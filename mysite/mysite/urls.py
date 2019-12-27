@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', app_view.home, name='home'),
     path('login/', app_view.login, name='login'),
+    path('display/', app_view.display, name='display'),
     # path('register/new/', app_view.register_user_request, name='registerationrequest'),
     path('register/', app_view.register_user, name='register'),
     path('gen/', app_view.generate_certificate, name='generate_certificate'),
