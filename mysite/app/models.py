@@ -29,7 +29,7 @@ class Params(models.Model):
 
 class Certificate(models.Model):
 	title = models.CharField(max_length=128)
-	display = models.CharField(max_length=5)
+	display = models.CharField(max_length=5) # this is to determine whether to display certificate or not (until it's issued it should be false. when the user wishes to keep it private it should be false (not sure about the user wanting to keep a certificate private part tho))
 	people_associated = models.TextField()
 	certificate_hash = models.TextField()
 	certificate_hash_indexes = models.TextField()
@@ -56,3 +56,5 @@ class User(models.Model):
 
 	def __str__(self):
 		return self.username
+
+# End here

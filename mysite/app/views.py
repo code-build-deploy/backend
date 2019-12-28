@@ -63,7 +63,7 @@ def randomise_hash(words):
 			random_chain.append(words[x])
 	return random_chain, indexes
 
-def create_hash(username, email):
+def create_hash(username, email, reqtype):
 	generate_words()
 	hash_selected_index = []
 	words = []
@@ -105,7 +105,10 @@ def create_hash(username, email):
 			id_list = id_list + " "
 		count = count + 1
 
-	User.objects.create(email=email, username=username, user_id=id_list, chain=string)
+	if reqtype == 'user':
+		User.objects.create(email=email, username=username, user_id=id_list, chain=string)
+	elif reqtype == 'org':
+		Organisation.objects.create(name=username, email=email, user_id=id_list, id_hash=string)
 
 	return random_string
 
@@ -114,7 +117,7 @@ def register_user(request):
 		y = json.loads(request.body)
 		email = y["email"]
 		username = y["username"]
-		id_hash = create_hash(username, email)
+		id_hash = create_hash(username, email, 'user')
 		data = {
 			"username": username,
 			"email": email,
@@ -168,7 +171,22 @@ def login(request):
 	else:
 		return HttpResponse("Incorrect Attempt")
 
-def generate_certificate(request):
+def register_organisation(request):
+	if request.method == 'POST':
+		y = json.loads(request.body)
+		name = y["name"]
+		email = y["email"]
+		id_hash = create_hash(name, email, 'org')
+		data = {
+			"name": name,
+			"email": email,
+			"hash": id_hash
+		}
+		return JsonResponse(data, safe=False)
+	else:
+		return HttpResponse("Incorrect validation schema")
+
+def organisation_login(request):
 	if request.method == 'POST':
 		y = json.loads(request.body)
 		organisation_username = y["username"]
@@ -176,7 +194,7 @@ def generate_certificate(request):
 		organisation_hash = y["chain"]
 		recieved_chain = organisation_hash.split()
 		
-		organisation = Organisation.objects.get(username=organisation_username, email=organisation_email)
+		organisation = Organisation.objects.get(name=organisation_username, email=organisation_email)
 		indexes = organisation.user_id
 		indexes = indexes.split()
 
@@ -201,11 +219,14 @@ def generate_certificate(request):
 		
 		if organisation.validate_chain(new_chain):
 			data = {
-				""
+				"login": "true"
 			}
 			return JsonResponse(data, safe=True)
 		else:
-			return HttpResponse("Incorrect Attempt")
+			data = {
+				"login": "false"
+			}
+			return JsonResponse(data, safe=True)
 	else:
 		return HttpResponse("Attempt")
 
