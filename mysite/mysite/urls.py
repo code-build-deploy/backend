@@ -26,7 +26,8 @@ urlpatterns = [
     path('register/', app_view.register_user, name='register'),
     path('login/org/', app_view.organisation_login, name='organisation_login'),
     path('register/org/', app_view.register_organisation, name='reg_org'),
-    # path('autosave/', app_view.autosave, name='autosave'),
+    path('certificate/', app_view.create_cert, name='create_certificate'),
+    path('autosave/', app_view.autosave, name='autosave'),
     # path('response/', app_view.create_hash, name='generatehash'),
     # path('clash/', app_view.clash, name='clash'),
 ]
