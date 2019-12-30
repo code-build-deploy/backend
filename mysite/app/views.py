@@ -6,16 +6,16 @@ import random
 import json
 # Create your views here.
 
-selected_words = ['hyalins', 'mongo', 'daffed', 'midlines', 'mikvahs', 'murthers', 'miliaria', 'mulleins', 'mutines', 'humiture', 'mimics', 'mids', 'mooneye', 'cablet', 'mungos', 'idolator', 'moved', 'mikvehs', 'imblaze', 'morris', 'misdrew', 'mulberry', 'imped', 'mummery', 'hump', 'mishits', 'imam', 'mistrace', 'dactylus', 'mintages', 'miser', 'mucid', 'milesian', 'mousaka', 'hypogean', 'mim', 'munnions', 'muraenid', 'mofettes', 'mitis', 'mixing', 'misenter', 'mongrels', 'morn', 'muton', 'murrine', 'nannyish', 'munchkin', 'mild', 'mynas', 'ills', 'mikron', 'missuit', 'daemonic', 'musick', 'hushed', 'mysticly', 'naivetes', 'humbugs', 'hurdlers', 'muck', 'muzzy', 'mistook', 'ilmenite', 'cacaos', 'moldings', 'morsels', 'muezzin', 'milles', 'mud', 'muckles', 'millings', 'illitic', 'hypergol', 'nabobism', 'mismake', 'mispoint', 'mural', 'moneymen', 'migrator', 'mimicker', 'mimicked', 'idealess', 'hypoing', 'hunching', 'mongos', 'nae', 'humper', 'impasses', 'milia', 'minidisc', 'iguana', 'naiades', 'mulcting', 'mooter', 'mohalim', 'myotonia', 'mightier', 'mottles', 'minoring', 'ideation', 'mystagog', 'hummed', 'mounding', 'modicums', 'monopoly', 'imino', 'misally', 'mome', 'mommy', 'hydride', 'molies', 'miffier', 'missives', 'cabstand', 'miseaten', 'moviedom', 'ichthyic', 'myotome', 'montaged', 'monocled', 'impair', 'misdoer', 'illest', 'moment', 'modeling', 'icon', 'humoral', 'mikados', 'idol', 'moiling', 'mudrocks', 'immenser', 'moult', 'huppahs', 'moatlike', 'imaret', 'middies', 'impellor', 'muled', 'mislying', 'minors', 'impaired', 'misusing', 'hymnist', 'miff', 'imp', 'milline', 'monomers', 'mouch', 'moonlit', 'musk', 'moulins', 'naive', 'dackers', 'mooters', 'hundreds', 'motioned', 'mirepoix', 'mid', 'idled', 'misinter', 'mudcats', 'imago', 'minim', 'minipark', 'micrurgy', 'husked', 'dackered', 'monistic', 'imide', 'hydrates', 'hunters', 'nanny', 'mulattos', 'midis', 'mohel', 'misplead', 'murphy', 'mildly', 'iambi', 'mimetite', 'minacity', 'illusory', 'impanels', 'midbrain', 'immobile', 'monsoons', 'myxameba', 'mislays', 'mobbing', 'moxies', 'muss', 'misvalue', 'hypoxias', 'monished', 'dacoity', 'babuls', 'musing', 'mikvoth', 'mools', 'mopishly', 'moors', 'moaner', 'misfits', 'mopokes', 'monde', 'nape', 'milages', 'misspend', 'hungrier', 'mispages', 'hyalines', 'misalter', 'modulus', 'nab', 'immerge', 'misogamy', 'monkey', 'nakfas', 'miry', 'mopiness', 'midtown', 'midweek', 'hurtles', 'mojoes', 'mullet', 'mitten', 'mise', 'igniters', 'baccarat', 'moats', 'mirks', 'moseyed', 'murder', 'mikvot', 'monogamy', 'minipill', 'imbrued', 'mouldy', 'nana', 'husbands', 'hypo', 'moduli', 'mips', 'misnomer', 'myosis', 'mitral', 'moseys', 'mimic', 'modulo', 'ignatias', 'mostests', 'miocene', 'miradors', 'millilux', 'mohur', 'misate', 'myelomas', 'misdid', 'mincing', 'mint', 'immanent', 'igloos', 'misguide', 'monadic', 'missions', 'myotomes', 'mislived', 'middling', 'dadoing', 'illuvial', 'moths', 'modeller', 'mm', 'mislive', 'moodily', 'muffins', 'myopy', 'ileal', 'millwork', 'mispaint', 'miscooks', 'mittened', 'moot', 'milkmen', 'miscast', 'monohull', 'mower', 'moly', 'hydroid', 'mudcat', 'misbegan', 'mooners', 'ignorer', 'minnows', 'mil', 'imparts', 'moxa', 'hustle', 'misspeak', 'hyphenic', 'mishmosh', 'missis', 'idling', 'myelines', 'hypoed', 'hydra', 'mousier', 'baccated', 'muscats', 'hurled', 'hunter', 'munchers', 'backbeat', 'nabobess', 'hurleys', 'mons', 'mulley', 'missels', 'naggier', 'mumbly', 'moist', 'ibices', 'hurdles', 'missile', 'mitering', 'midgut', 'mitosis', 'mooncalf', 'mortar', 'bacalaos', 'midrange', 'idiotism', 'musician', 'mingy', 'hunker', 'mundungo', 'misguess', 'nagana', 'midyears', 'mutilate', 'miters', 'hutch', 'imbalms', 'hurrays', 'murderer', 'humdrums', 'mum', 'minicars', 'musketry', 'hussies', 'muttons', 'mudpacks', 'modally', 'mylonite', 'musquash', 'misrates', 'monopody', 'muff', 'iceboxes', 'mostest', 'myalgic', 'mycs', 'modified', 'mitzvahs', 'motorbus', 'moreens', 'hyla', 'illative', 'idoliser', 'myrtles', 'ideality', 'mudslide', 'mirin', 'idolise', 'migrates', 'miscoin', 'muts', 'baching', 'ignitors', 'baboon', 'mooch', 'moose', 'hydroids', 'hutches', 'misyoked', 'huskers', 'imbrowns', 'mustier', 'mulligan', 'naos', 'milling', 'minutest', 'daddling', 'moreover', 'babushka', 'cachalot', 'monocots', 'murices', 'idles', 'mozos', 'molters', 'mourners', 'imbibing', 'myotonic', 'myelitis', 'myopias', 'mobcaps', 'morros', 'motleyer', 'misstep', 'mythier', 'huskily', 'moloch', 'misapply', 'morals', 'mosts', 'mujiks', 'mistitle', 'milliped', 'muktuks', 'impends', 'motorize', 'murmur', 'misstops', 'misplans', 'dado', 'daffier', 'moralize', 'monas', 'mulches', 'moderns', 'icterus', 'midnoons', 'illation', 'dacoits', 'mutined', 'hutlike', 'naething', 'hunger', 'mikveh', 'igging', 'missus', 'ileac', 'mosk', 'mudflows', 'minyanim', 'monos', 'minciest', 'hutching', 'hyphens', 'murdered', 'ignites', 'morpho', 'mucinoid', 'must', 'illudes', 'idiocies', 'mumpers', 'molder', 'nachos', 'mycology', 'mislight', 'minuend', 'morgans', 'mycelian', 'nabob', 'hustings', 'immeshed', 'minglers', 'idylists', 'babus', 'husks', 'cables', 'impacted', 'modester', 'morbific', 'militia', 'mispoise', 'mimical', 'mossers', 'momes', 'idolized', 'babysat', 'motiving', 'mounters', 'muscid', 'minters', 'myotics', 'motived', 'hydroxy', 'moroccos', 'mobile', 'imitator', 'midlife', 'mucosity', 'mixer', 'muckiest', 'mobility']
+# selected_words = ['hyalins', 'mongo', 'daffed', 'midlines', 'mikvahs', 'murthers', 'miliaria', 'mulleins', 'mutines', 'humiture', 'mimics', 'mids', 'mooneye', 'cablet', 'mungos', 'idolator', 'moved', 'mikvehs', 'imblaze', 'morris', 'misdrew', 'mulberry', 'imped', 'mummery', 'hump', 'mishits', 'imam', 'mistrace', 'dactylus', 'mintages', 'miser', 'mucid', 'milesian', 'mousaka', 'hypogean', 'mim', 'munnions', 'muraenid', 'mofettes', 'mitis', 'mixing', 'misenter', 'mongrels', 'morn', 'muton', 'murrine', 'nannyish', 'munchkin', 'mild', 'mynas', 'ills', 'mikron', 'missuit', 'daemonic', 'musick', 'hushed', 'mysticly', 'naivetes', 'humbugs', 'hurdlers', 'muck', 'muzzy', 'mistook', 'ilmenite', 'cacaos', 'moldings', 'morsels', 'muezzin', 'milles', 'mud', 'muckles', 'millings', 'illitic', 'hypergol', 'nabobism', 'mismake', 'mispoint', 'mural', 'moneymen', 'migrator', 'mimicker', 'mimicked', 'idealess', 'hypoing', 'hunching', 'mongos', 'nae', 'humper', 'impasses', 'milia', 'minidisc', 'iguana', 'naiades', 'mulcting', 'mooter', 'mohalim', 'myotonia', 'mightier', 'mottles', 'minoring', 'ideation', 'mystagog', 'hummed', 'mounding', 'modicums', 'monopoly', 'imino', 'misally', 'mome', 'mommy', 'hydride', 'molies', 'miffier', 'missives', 'cabstand', 'miseaten', 'moviedom', 'ichthyic', 'myotome', 'montaged', 'monocled', 'impair', 'misdoer', 'illest', 'moment', 'modeling', 'icon', 'humoral', 'mikados', 'idol', 'moiling', 'mudrocks', 'immenser', 'moult', 'huppahs', 'moatlike', 'imaret', 'middies', 'impellor', 'muled', 'mislying', 'minors', 'impaired', 'misusing', 'hymnist', 'miff', 'imp', 'milline', 'monomers', 'mouch', 'moonlit', 'musk', 'moulins', 'naive', 'dackers', 'mooters', 'hundreds', 'motioned', 'mirepoix', 'mid', 'idled', 'misinter', 'mudcats', 'imago', 'minim', 'minipark', 'micrurgy', 'husked', 'dackered', 'monistic', 'imide', 'hydrates', 'hunters', 'nanny', 'mulattos', 'midis', 'mohel', 'misplead', 'murphy', 'mildly', 'iambi', 'mimetite', 'minacity', 'illusory', 'impanels', 'midbrain', 'immobile', 'monsoons', 'myxameba', 'mislays', 'mobbing', 'moxies', 'muss', 'misvalue', 'hypoxias', 'monished', 'dacoity', 'babuls', 'musing', 'mikvoth', 'mools', 'mopishly', 'moors', 'moaner', 'misfits', 'mopokes', 'monde', 'nape', 'milages', 'misspend', 'hungrier', 'mispages', 'hyalines', 'misalter', 'modulus', 'nab', 'immerge', 'misogamy', 'monkey', 'nakfas', 'miry', 'mopiness', 'midtown', 'midweek', 'hurtles', 'mojoes', 'mullet', 'mitten', 'mise', 'igniters', 'baccarat', 'moats', 'mirks', 'moseyed', 'murder', 'mikvot', 'monogamy', 'minipill', 'imbrued', 'mouldy', 'nana', 'husbands', 'hypo', 'moduli', 'mips', 'misnomer', 'myosis', 'mitral', 'moseys', 'mimic', 'modulo', 'ignatias', 'mostests', 'miocene', 'miradors', 'millilux', 'mohur', 'misate', 'myelomas', 'misdid', 'mincing', 'mint', 'immanent', 'igloos', 'misguide', 'monadic', 'missions', 'myotomes', 'mislived', 'middling', 'dadoing', 'illuvial', 'moths', 'modeller', 'mm', 'mislive', 'moodily', 'muffins', 'myopy', 'ileal', 'millwork', 'mispaint', 'miscooks', 'mittened', 'moot', 'milkmen', 'miscast', 'monohull', 'mower', 'moly', 'hydroid', 'mudcat', 'misbegan', 'mooners', 'ignorer', 'minnows', 'mil', 'imparts', 'moxa', 'hustle', 'misspeak', 'hyphenic', 'mishmosh', 'missis', 'idling', 'myelines', 'hypoed', 'hydra', 'mousier', 'baccated', 'muscats', 'hurled', 'hunter', 'munchers', 'backbeat', 'nabobess', 'hurleys', 'mons', 'mulley', 'missels', 'naggier', 'mumbly', 'moist', 'ibices', 'hurdles', 'missile', 'mitering', 'midgut', 'mitosis', 'mooncalf', 'mortar', 'bacalaos', 'midrange', 'idiotism', 'musician', 'mingy', 'hunker', 'mundungo', 'misguess', 'nagana', 'midyears', 'mutilate', 'miters', 'hutch', 'imbalms', 'hurrays', 'murderer', 'humdrums', 'mum', 'minicars', 'musketry', 'hussies', 'muttons', 'mudpacks', 'modally', 'mylonite', 'musquash', 'misrates', 'monopody', 'muff', 'iceboxes', 'mostest', 'myalgic', 'mycs', 'modified', 'mitzvahs', 'motorbus', 'moreens', 'hyla', 'illative', 'idoliser', 'myrtles', 'ideality', 'mudslide', 'mirin', 'idolise', 'migrates', 'miscoin', 'muts', 'baching', 'ignitors', 'baboon', 'mooch', 'moose', 'hydroids', 'hutches', 'misyoked', 'huskers', 'imbrowns', 'mustier', 'mulligan', 'naos', 'milling', 'minutest', 'daddling', 'moreover', 'babushka', 'cachalot', 'monocots', 'murices', 'idles', 'mozos', 'molters', 'mourners', 'imbibing', 'myotonic', 'myelitis', 'myopias', 'mobcaps', 'morros', 'motleyer', 'misstep', 'mythier', 'huskily', 'moloch', 'misapply', 'morals', 'mosts', 'mujiks', 'mistitle', 'milliped', 'muktuks', 'impends', 'motorize', 'murmur', 'misstops', 'misplans', 'dado', 'daffier', 'moralize', 'monas', 'mulches', 'moderns', 'icterus', 'midnoons', 'illation', 'dacoits', 'mutined', 'hutlike', 'naething', 'hunger', 'mikveh', 'igging', 'missus', 'ileac', 'mosk', 'mudflows', 'minyanim', 'monos', 'minciest', 'hutching', 'hyphens', 'murdered', 'ignites', 'morpho', 'mucinoid', 'must', 'illudes', 'idiocies', 'mumpers', 'molder', 'nachos', 'mycology', 'mislight', 'minuend', 'morgans', 'mycelian', 'nabob', 'hustings', 'immeshed', 'minglers', 'idylists', 'babus', 'husks', 'cables', 'impacted', 'modester', 'morbific', 'militia', 'mispoise', 'mimical', 'mossers', 'momes', 'idolized', 'babysat', 'motiving', 'mounters', 'muscid', 'minters', 'myotics', 'motived', 'hydroxy', 'moroccos', 'mobile', 'imitator', 'midlife', 'mucosity', 'mixer', 'muckiest', 'mobility']
 
 # Autosave function (Used this to create worded parameters I guess)
-def autosave(request):
-	i = 0
-	while i < len(selected_words):
-		x = selected_words[i]
-		Params.objects.create(name=x)
-		i = i + 1
-	return HttpResponse("<h1>Successful</h1>")
+# def autosave(request):
+# 	i = 0
+# 	while i < len(selected_words):
+# 		x = selected_words[i]
+# 		Params.objects.create(name=x)
+# 		i = i + 1
+# 	return HttpResponse("<h1>Successful</h1>")
 
 # Work on the register_user_request later, we'll use this for three way handshake
 
@@ -25,7 +25,7 @@ def autosave(request):
 # 	else:
 # 		return HttpResponse("Incorrect validation schema")
 
-# selected_words = []
+selected_words = []
 
 def home(request):
 	return HttpResponse("Hello World")
@@ -33,14 +33,23 @@ def home(request):
 def display(request):
 	if request.method == 'POST':
 		resp = json.loads(request.body)
-		user_hash_associated = resp['hash']
-		merits = Certificate.objects.filter(awarded_to=user_hash_associated)
+		username = resp['username']
+		merits = Certificate.objects.filter(awarded_to=username)
+		awarded = []
+		count = 0
 		for i in merits:
-			print(i.ret_certificate())
-		data = {
-			"number": int(len(merits))
-		}
-		return JsonResponse(data, safe=False)
+			if i.ret_certificate():
+				data = {
+					"title": i.title,
+					"reciever": i.awarded_to,
+					"time": i.awarded_on
+				}
+				count = count + 1
+				awarded.append(data)
+			titles = {
+				"certificates": awarded
+			}
+		return JsonResponse(titles, safe=False)
 	else:
 		return HttpResponse("Nopes bud, not working")
 
@@ -280,4 +289,49 @@ def create_cert(request):
 			return JsonResponse(data, safe=True)
 	else:
 		return HttpResponse("Attempt")
+
+def dashboard(request):
+	if request.method == 'POST':
+		y = json.loads(request.body)
+		tempusername = y["username"]
+		records = Certificate.objects.all()
+		certificates_to_be_signed = []
+		for i in records:
+			if i.check_employee(tempusername):
+				data = {
+					"title": i.title,
+					"reciever": i.awarded_to,
+					"time": i.awarded_on,
+					"hash": i.certificate_hash
+				}
+				certificates_to_be_signed.append(data)
+		return JsonResponse(certificates_to_be_signed, safe=False)
+	else:
+		return HttpResponse("Invalid")
+
+
+def sign_certificate(request):
+	if request.method == 'POST':
+		y = json.loads(request.body)
+		tempCertificateHash = y["hash"]
+		tempUsername = y["username"]
+		tempRemarks = y["remarks"]
+		tempStatus = y["status"]
+		approvedCertificate = Certificate.objects.get(certificate_hash=tempCertificateHash)
+		if tempStatus == 'Approved':
+			remarks = tempUsername + " approves this.\n"
+			approvedCertificate.employee_approves(tempUsername)
+		else:
+			remarks = tempUsername + " says '" + tempRemarks + "' at " + timezone.now() + "\n"
+		approvedCertificate.remarks = approvedCertificate.remarks + remarks
+		approvedCertificate.save()
+		data = {
+			"message": "success"
+		}
+		return JsonResponse(data, safe=False)
+	else:
+		data = {
+			"message": "Try again bud"
+		}
+		return JsonResponse(data, safe=False)
 

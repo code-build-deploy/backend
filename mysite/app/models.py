@@ -34,10 +34,24 @@ class Certificate(models.Model):
 	certificate_hash = models.TextField()
 	certificate_hash_indexes = models.TextField()
 	awarded_to = models.CharField(max_length=128)
+	remarks = models.TextField()
 	awarded_on = models.DateTimeField(default=timezone.now)
 
 	def ret_certificate(self):
 		return bool(self.display)
+
+	def check_employee(self, signedInUserName):
+		if signedInUserName in self.people_associated:
+			return True
+
+	def employee_approves(self, signedInUserName):
+		if signedInUserName in self.people_associated:
+			usernameToRemove = signedInUserName + ", "
+			tempdata = self.people_associated
+			tempdata = tempdata.replace(signedInUserName, signedInUserName)
+			print(tempdata)
+			self.people_associated = tempdata
+			self.save()
 
 	def __str__(self):
 		return self.awarded_to
