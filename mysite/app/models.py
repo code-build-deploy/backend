@@ -45,13 +45,21 @@ class Certificate(models.Model):
 			return True
 
 	def employee_approves(self, signedInUserName):
-		if signedInUserName in self.people_associated:
-			usernameToRemove = signedInUserName + ", "
-			tempdata = self.people_associated
-			tempdata = tempdata.replace(signedInUserName, signedInUserName)
-			print(tempdata)
-			self.people_associated = tempdata
-			self.save()
+		usernameToRemove = signedInUserName + ", "
+		tempdata = self.people_associated
+		if ', ' in tempdata:
+			tempStr = signedInUserName + ', '
+		else:
+			tempStr = signedInUserName
+		tempdata = tempdata.replace(tempStr, '')
+		self.people_associated = tempdata
+		self.save()
+
+	def approved(self):
+		if len(self.people_associated) == 0:
+			return True
+		else:
+			return False
 
 	def __str__(self):
 		return self.awarded_to
@@ -70,5 +78,31 @@ class User(models.Model):
 
 	def __str__(self):
 		return self.username
+
+
+# class Employee(models.Model):
+# 	name = models.CharField(max_length=128)
+# 	username = models.CharField(max_length=128)
+# 	email = models.CharField(max_length=256)
+# 	chain = models.CharField(max_length=256)
+# 	user_id = models.CharField(max_length=512)
+# 	organisation_associated = models.TextField()
+
+# 	def validate_chain(self, recieved_chain):
+# 		if recieved_chain == self.chain:
+# 			return True
+# 		else:
+# 			return False
+
+# 	def check_organisation(self, tempOrganisationName):
+# 		if tempOrganisationName in self.organisation_associated:
+# 			return True
+# 		else:
+# 			return False
+
+# 	def __str__(self):
+# 		return self.name
+
+
 
 # End here
