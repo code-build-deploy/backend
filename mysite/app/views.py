@@ -34,8 +34,9 @@ def home(request):
 def display(request):
 	if request.method == 'POST':
 		resp = json.loads(request.body)
-		username = resp['username']
-		merits = Certificate.objects.filter(awarded_to=username)
+		tempEmail = resp['email']
+		tempUser = User.objects.get(email=tempEmail)
+		merits = Certificate.objects.filter(awarded_to=tempUser.username)
 		awarded = []
 		count = 0
 		for i in merits:

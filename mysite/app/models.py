@@ -38,7 +38,10 @@ class Certificate(models.Model):
 	awarded_on = models.DateTimeField(default=timezone.now)
 
 	def ret_certificate(self):
-		return bool(self.display)
+		if self.display == 'false':
+			return False
+		else:
+			return True
 
 	def check_employee(self, signedInUserName):
 		if signedInUserName in self.people_associated:
