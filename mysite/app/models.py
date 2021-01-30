@@ -20,7 +20,7 @@ class Organisation(models.Model):
 	def __str__(self):
 		return self.name
 
-class Params(models.Model):
+class Param(models.Model):
 	name = models.CharField(max_length=10)
 	registered_on = models.DateTimeField(default=timezone.now)
 
@@ -80,7 +80,9 @@ class User(models.Model):
 			return False
 
 	def __str__(self):
-		return self.username
+		chain = str(self.chain)
+		chain = chain.replace(" ", "")
+		return str(hash(chain))
 
 
 # class Employee(models.Model):

@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Params, User, Certificate, Organisation
+from .models import Param, User, Certificate, Organisation
 # Register your models here.
-admin.site.register(Params)
+admin.site.register(Param)
 admin.site.register(User)
 admin.site.register(Certificate)
 admin.site.register(Organisation)

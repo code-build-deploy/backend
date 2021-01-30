@@ -1,32 +1,22 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
-from .models import Params, User, Certificate, Organisation
+from .models import Param, User, Certificate, Organisation
 import random
 import json
 from datetime import datetime
 # Create your views here.
 
-# selected_words = ['hyalins', 'mongo', 'daffed', 'midlines', 'mikvahs', 'murthers', 'miliaria', 'mulleins', 'mutines', 'humiture', 'mimics', 'mids', 'mooneye', 'cablet', 'mungos', 'idolator', 'moved', 'mikvehs', 'imblaze', 'morris', 'misdrew', 'mulberry', 'imped', 'mummery', 'hump', 'mishits', 'imam', 'mistrace', 'dactylus', 'mintages', 'miser', 'mucid', 'milesian', 'mousaka', 'hypogean', 'mim', 'munnions', 'muraenid', 'mofettes', 'mitis', 'mixing', 'misenter', 'mongrels', 'morn', 'muton', 'murrine', 'nannyish', 'munchkin', 'mild', 'mynas', 'ills', 'mikron', 'missuit', 'daemonic', 'musick', 'hushed', 'mysticly', 'naivetes', 'humbugs', 'hurdlers', 'muck', 'muzzy', 'mistook', 'ilmenite', 'cacaos', 'moldings', 'morsels', 'muezzin', 'milles', 'mud', 'muckles', 'millings', 'illitic', 'hypergol', 'nabobism', 'mismake', 'mispoint', 'mural', 'moneymen', 'migrator', 'mimicker', 'mimicked', 'idealess', 'hypoing', 'hunching', 'mongos', 'nae', 'humper', 'impasses', 'milia', 'minidisc', 'iguana', 'naiades', 'mulcting', 'mooter', 'mohalim', 'myotonia', 'mightier', 'mottles', 'minoring', 'ideation', 'mystagog', 'hummed', 'mounding', 'modicums', 'monopoly', 'imino', 'misally', 'mome', 'mommy', 'hydride', 'molies', 'miffier', 'missives', 'cabstand', 'miseaten', 'moviedom', 'ichthyic', 'myotome', 'montaged', 'monocled', 'impair', 'misdoer', 'illest', 'moment', 'modeling', 'icon', 'humoral', 'mikados', 'idol', 'moiling', 'mudrocks', 'immenser', 'moult', 'huppahs', 'moatlike', 'imaret', 'middies', 'impellor', 'muled', 'mislying', 'minors', 'impaired', 'misusing', 'hymnist', 'miff', 'imp', 'milline', 'monomers', 'mouch', 'moonlit', 'musk', 'moulins', 'naive', 'dackers', 'mooters', 'hundreds', 'motioned', 'mirepoix', 'mid', 'idled', 'misinter', 'mudcats', 'imago', 'minim', 'minipark', 'micrurgy', 'husked', 'dackered', 'monistic', 'imide', 'hydrates', 'hunters', 'nanny', 'mulattos', 'midis', 'mohel', 'misplead', 'murphy', 'mildly', 'iambi', 'mimetite', 'minacity', 'illusory', 'impanels', 'midbrain', 'immobile', 'monsoons', 'myxameba', 'mislays', 'mobbing', 'moxies', 'muss', 'misvalue', 'hypoxias', 'monished', 'dacoity', 'babuls', 'musing', 'mikvoth', 'mools', 'mopishly', 'moors', 'moaner', 'misfits', 'mopokes', 'monde', 'nape', 'milages', 'misspend', 'hungrier', 'mispages', 'hyalines', 'misalter', 'modulus', 'nab', 'immerge', 'misogamy', 'monkey', 'nakfas', 'miry', 'mopiness', 'midtown', 'midweek', 'hurtles', 'mojoes', 'mullet', 'mitten', 'mise', 'igniters', 'baccarat', 'moats', 'mirks', 'moseyed', 'murder', 'mikvot', 'monogamy', 'minipill', 'imbrued', 'mouldy', 'nana', 'husbands', 'hypo', 'moduli', 'mips', 'misnomer', 'myosis', 'mitral', 'moseys', 'mimic', 'modulo', 'ignatias', 'mostests', 'miocene', 'miradors', 'millilux', 'mohur', 'misate', 'myelomas', 'misdid', 'mincing', 'mint', 'immanent', 'igloos', 'misguide', 'monadic', 'missions', 'myotomes', 'mislived', 'middling', 'dadoing', 'illuvial', 'moths', 'modeller', 'mm', 'mislive', 'moodily', 'muffins', 'myopy', 'ileal', 'millwork', 'mispaint', 'miscooks', 'mittened', 'moot', 'milkmen', 'miscast', 'monohull', 'mower', 'moly', 'hydroid', 'mudcat', 'misbegan', 'mooners', 'ignorer', 'minnows', 'mil', 'imparts', 'moxa', 'hustle', 'misspeak', 'hyphenic', 'mishmosh', 'missis', 'idling', 'myelines', 'hypoed', 'hydra', 'mousier', 'baccated', 'muscats', 'hurled', 'hunter', 'munchers', 'backbeat', 'nabobess', 'hurleys', 'mons', 'mulley', 'missels', 'naggier', 'mumbly', 'moist', 'ibices', 'hurdles', 'missile', 'mitering', 'midgut', 'mitosis', 'mooncalf', 'mortar', 'bacalaos', 'midrange', 'idiotism', 'musician', 'mingy', 'hunker', 'mundungo', 'misguess', 'nagana', 'midyears', 'mutilate', 'miters', 'hutch', 'imbalms', 'hurrays', 'murderer', 'humdrums', 'mum', 'minicars', 'musketry', 'hussies', 'muttons', 'mudpacks', 'modally', 'mylonite', 'musquash', 'misrates', 'monopody', 'muff', 'iceboxes', 'mostest', 'myalgic', 'mycs', 'modified', 'mitzvahs', 'motorbus', 'moreens', 'hyla', 'illative', 'idoliser', 'myrtles', 'ideality', 'mudslide', 'mirin', 'idolise', 'migrates', 'miscoin', 'muts', 'baching', 'ignitors', 'baboon', 'mooch', 'moose', 'hydroids', 'hutches', 'misyoked', 'huskers', 'imbrowns', 'mustier', 'mulligan', 'naos', 'milling', 'minutest', 'daddling', 'moreover', 'babushka', 'cachalot', 'monocots', 'murices', 'idles', 'mozos', 'molters', 'mourners', 'imbibing', 'myotonic', 'myelitis', 'myopias', 'mobcaps', 'morros', 'motleyer', 'misstep', 'mythier', 'huskily', 'moloch', 'misapply', 'morals', 'mosts', 'mujiks', 'mistitle', 'milliped', 'muktuks', 'impends', 'motorize', 'murmur', 'misstops', 'misplans', 'dado', 'daffier', 'moralize', 'monas', 'mulches', 'moderns', 'icterus', 'midnoons', 'illation', 'dacoits', 'mutined', 'hutlike', 'naething', 'hunger', 'mikveh', 'igging', 'missus', 'ileac', 'mosk', 'mudflows', 'minyanim', 'monos', 'minciest', 'hutching', 'hyphens', 'murdered', 'ignites', 'morpho', 'mucinoid', 'must', 'illudes', 'idiocies', 'mumpers', 'molder', 'nachos', 'mycology', 'mislight', 'minuend', 'morgans', 'mycelian', 'nabob', 'hustings', 'immeshed', 'minglers', 'idylists', 'babus', 'husks', 'cables', 'impacted', 'modester', 'morbific', 'militia', 'mispoise', 'mimical', 'mossers', 'momes', 'idolized', 'babysat', 'motiving', 'mounters', 'muscid', 'minters', 'myotics', 'motived', 'hydroxy', 'moroccos', 'mobile', 'imitator', 'midlife', 'mucosity', 'mixer', 'muckiest', 'mobility']
 
 # Autosave function (Used this to create worded parameters I guess)
-# def autosave(request):
-# 	i = 0
-# 	while i < len(selected_words):
-# 		x = selected_words[i]
-# 		Params.objects.create(name=x)
-# 		i = i + 1
-# 	return HttpResponse("<h1>Successful</h1>")
+def autosave(request):
+	source_file = open("words_dictionary.json")
+	data = json.load(source_file)
+	for i in data.keys():
+		if len(i) >= 5 and len(i) <= 8:
+			Param.objects.create(name=i)
+	return HttpResponse("<h1>Successful</h1>")
 
-# Work on the register_user_request later, we'll use this for three way handshake
-
-# def register_user_request(request):
-# 	if request.method == 'POST':
-# 		y = json.loads(request.body)
-# 	else:
-# 		return HttpResponse("Incorrect validation schema")
-
-selected_words = []
 
 def home(request):
 	return HttpResponse("Hello World")
@@ -55,11 +45,11 @@ def display(request):
 	else:
 		return HttpResponse("Nopes bud, not working")
 
-def generate_words():
-	x = list(Params.objects.values('name'))
+def generate_words(words):
+	x = list(Param.objects.values('name'))
 	for i in range(len(x)):
 		word = x[i]['name']
-		selected_words.append(word)
+		words.append(word)
 
 def randomise_hash(words):
 	indexes = []
@@ -75,25 +65,26 @@ def randomise_hash(words):
 	return random_chain, indexes
 
 def create_hash(username, email, reqtype):
-	generate_words()
-	hash_selected_index = []
 	words = []
+	generate_words(words)
+	hash_selected_index = []
+	sel_words = []
 	li = ""
 	while len(hash_selected_index) != 10:
-		x = random.random() * (len(selected_words) - 1)
+		x = random.random() * (len(words) - 1)
 		x = round(x)
 		if x not in hash_selected_index:
 			hash_selected_index.append(x)
-			words.append(selected_words[x])
+			sel_words.append(words[x])
 
-	final_generated_chain, final_hash_index = randomise_hash(words)
+	final_generated_chain, final_hash_index = randomise_hash(sel_words)
 
 	string = ""
 	random_string = ""
 	
 	count = 0
 	
-	for i in words:
+	for i in sel_words:
 		string = string + i
 		if count < 9:
 			string = string + " "
@@ -162,14 +153,12 @@ def login(request):
 		for i in range(10):
 			data[indexes[i]] = recieved_chain[i]
 
-		count = 0
 		new_chain = ""
 
 		for i in range(10):
 			new_chain = new_chain + data[i]
-			if count < 9:
+			if i < 9:
 				new_chain = new_chain + " "
-			count = count + 1
 		
 		if user.validate_chain(new_chain):
 			data = {
@@ -258,10 +247,11 @@ def create_cert(request):
 		organisation = Organisation.objects.get(name=organisation_username, email=organisation_email)
 		indexes = organisation.user_id
 		indexes = indexes.split()
+		new_indexes = [int(i) for i in indexes]
 
 		for i in range(len(indexes)):
 			indexes[i] = int(indexes[i])
-		
+		print(indexes, new_indexes)
 		data =[]
 		for i in range(10):
 			data.append(" ")
